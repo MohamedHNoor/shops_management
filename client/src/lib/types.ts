@@ -1,5 +1,5 @@
 export type Shop = {
-  shop_id: string;
+  id: string;
   name: string;
   town: string;
   province: string;

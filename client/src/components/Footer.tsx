@@ -27,7 +27,7 @@ const Footer = () => {
         {/* Developer Attribution */}
         <div>
           <Link
-            href='https://mohamedhnoor.dev' // Replace with the correct URL
+            href='https://github.com/MohamedHNoor' // Replace with the correct URL
             target='_blank'
             rel='noopener noreferrer'
             className='text-sm hover:text-green-400 transition-colors'

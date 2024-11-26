@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-import './globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
+import './globals.css';
 import { Suspense } from 'react';
 
 const roboto = Roboto({ weight: '400', subsets: ['latin'] });
@@ -21,7 +21,7 @@ export default function RootLayout({
       <html lang='en'>
         <body className={roboto.className}>
           <main className='h-full'>
-            <Suspense fallback='Loading...'>{children}</Suspense>
+            <Suspense fallback={null}>{children}</Suspense>
           </main>
         </body>
       </html>

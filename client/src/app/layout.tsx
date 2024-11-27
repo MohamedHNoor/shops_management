@@ -20,7 +20,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang='en'>
         <body className={roboto.className}>
-          <main className='h-full'>
+          <main className='min-h-screen'>
             <Suspense fallback={null}>{children}</Suspense>
           </main>
         </body>

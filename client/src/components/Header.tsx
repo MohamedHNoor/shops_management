@@ -1,9 +1,18 @@
+'use client';
+
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 
 function Header() {
+  const pathname = usePathname();
+  const hiddenPaths = ['/dashboard', '/addShop', '/profile', '/settings'];
+
+  if (hiddenPaths.includes(pathname)) {
+    return null; // Don't render Header and Footer
+  }
   return (
     <nav className='w-full bg-white shadow-md px-8'>
       <div className=' container mx-auto flex justify-between items-center '>

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 function LandingSection() {
   return (
-    <div className=''>
+    <div className='flex justify-center items-center'>
       <div className='container mx-auto flex flex-col md:flex-row items-center justify-between gap-x-3'>
         {/* <!--Left Col--> */}
         <div className='flex flex-col w-full md:w-1/2 justify-center items-start text-center md:text-left'>

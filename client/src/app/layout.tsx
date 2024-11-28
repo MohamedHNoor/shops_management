@@ -3,6 +3,8 @@ import { Roboto } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import './globals.css';
 import { Suspense } from 'react';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 
 const roboto = Roboto({ weight: '400', subsets: ['latin'] });
 
@@ -19,10 +21,12 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang='en'>
-        <body className={roboto.className}>
-          <main className='min-h-screen'>
+        <body className={`${roboto.className} flex flex-col min-h-screen`}>
+          <Header />
+          <main className='min-h-full'>
             <Suspense fallback={null}>{children}</Suspense>
           </main>
+          <Footer />
         </body>
       </html>
     </ClerkProvider>

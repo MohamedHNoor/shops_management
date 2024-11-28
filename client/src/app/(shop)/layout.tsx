@@ -13,7 +13,7 @@ async function ShopLayout({ children }: { children: React.ReactNode }) {
     <SidebarProvider>
       <div className='min-h-screen w-full bg-customgreys-primarybg flex'>
         <ShopSidebar />
-        <main className='px-8 py-20'>{children}</main>
+        <main className='px-8 py-20 w-screen'>{children}</main>
       </div>
     </SidebarProvider>
   );

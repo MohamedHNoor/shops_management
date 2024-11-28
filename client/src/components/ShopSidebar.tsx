@@ -34,7 +34,7 @@ const ShopSidebar = () => {
 
   const navLinks = [
     { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard' },
-    { icon: Store, label: 'Add Shop', href: '#' },
+    { icon: Store, label: 'Add Shop', href: '/addShop' },
     { icon: User, label: 'Profile', href: '/profile' },
     { icon: Settings, label: 'Settings', href: '/settings' },
   ];

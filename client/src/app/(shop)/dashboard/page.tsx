@@ -1,6 +1,5 @@
 'use client';
-
-import * as React from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -32,7 +31,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-import { shops } from '@/lib/placeholder-data';
+import { GetAllShops } from '@/app/actions/GetShops';
 import { Shop } from '@/lib/types';
 
 export const columns: ColumnDef<Shop>[] = [
@@ -59,12 +58,37 @@ export const columns: ColumnDef<Shop>[] = [
 ];
 
 export default function Dashboard() {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
-  const [columnVisibility] = React.useState<VisibilityState>({});
-  const [provinceFilter, setProvinceFilter] = React.useState<string>('All');
+  const [shops, setShops] = useState<Shop[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility] = useState<VisibilityState>({});
+  const [provinceFilter, setProvinceFilter] = useState<string>('All');
+
+  const fetchShops = async () => {
+    setLoading(true);
+    try {
+      const { data, error } = await GetAllShops();
+
+      if (error) {
+        return setError(error);
+      }
+      setShops(data || []);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError(String(err));
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+  // Fetch shop data based on user role
+  useEffect(() => {
+    fetchShops();
+  }, []);
 
   const handleProvinceFilterChange = (selectedProvince: string) => {
     setProvinceFilter(selectedProvince);
@@ -95,10 +119,18 @@ export default function Dashboard() {
     },
   });
 
-  const provinces = React.useMemo(
+  const provinces = useMemo(
     () => ['All', ...new Set(shops.map((shop) => shop.province))],
-    []
+    [shops]
   );
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div className='text-red-500'>Error: {error}</div>;
+  }
 
   return (
     <div className='w-full mx-auto'>
@@ -118,7 +150,7 @@ export default function Dashboard() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            {provinces.map((province) => (
+            {provinces.map((province: string) => (
               <DropdownMenuItem
                 key={province}
                 onClick={() => handleProvinceFilterChange(province)}

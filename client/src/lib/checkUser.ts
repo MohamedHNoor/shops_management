@@ -28,22 +28,3 @@ export const checkUser = async () => {
 
   return newUser;
 };
-//  get admin user from db and check if user is admin
-export const checkAdmin = async () => {
-  const user = await checkUser();
-  if (!user) {
-    return false;
-  }
-
-  const userDb = await prisma.user.findUnique({
-    where: {
-      clerkUserId: user.id,
-    },
-  });
-
-  if (!userDb) {
-    return false;
-  }
-
-  return userDb.role === 'ADMIN';
-};

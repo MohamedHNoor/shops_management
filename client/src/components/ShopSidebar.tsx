@@ -21,10 +21,10 @@ import {
   LayoutDashboard,
   Store,
 } from 'lucide-react';
-// import Loading from './Loading';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import Loading from './Loading';
 
 const ShopSidebar = () => {
   const { user } = useUser();
@@ -39,14 +39,13 @@ const ShopSidebar = () => {
     { icon: Settings, label: 'Settings', href: '/settings' },
   ];
 
-  // if (!isLoaded) return <Loading />;
-  if (!user) return <div>User not found</div>;
+  if (!user) return <Loading />;
 
   return (
     <Sidebar
       collapsible='icon'
       style={{ height: '100vh' }}
-      className='border-none shadow-lg'
+      className='border-none shadow-lg bg-white dark:bg-gray-800'
     >
       <SidebarHeader>
         <SidebarMenu className='mt-5 group-data-[collapsible=icon]:mt-7'>
@@ -80,16 +79,15 @@ const ShopSidebar = () => {
               <SidebarMenuItem
                 key={link.href}
                 className={cn(
-                  'group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:py-4 hover:bg-green-600',
-                  isActive && 'bg-green-500'
+                  'group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:py-4'
                 )}
               >
                 <SidebarMenuButton
                   asChild
                   size='lg'
                   className={cn(
-                    'gap-4 p-8 hover:bg-gray-500 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center',
-                    !isActive && 'text-white'
+                    'gap-4 p-8 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center',
+                    !isActive && 'text-gray-600'
                   )}
                 >
                   <Link
@@ -98,12 +96,12 @@ const ShopSidebar = () => {
                     scroll={false}
                   >
                     <link.icon
-                      className={isActive ? 'text-white' : 'text-gray-800'}
+                      className={isActive ? 'text-gray-900' : 'text-gray-800'}
                     />
                     <span
                       className={cn(
                         'font-medium text-md ml-4 group-data-[collapsible=icon]:hidden',
-                        isActive ? 'text-white' : 'text-gray-800'
+                        isActive ? 'text-gray-900' : 'text-gray-800'
                       )}
                     >
                       {link.label}
@@ -122,7 +120,10 @@ const ShopSidebar = () => {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <button onClick={() => signOut()} className='text-green-700 pl-8'>
+              <button
+                onClick={() => signOut()}
+                className='text-green-700 pl-8 flex items-center gap-2 py-3 hover:bg-green-100 rounded-md transition-colors duration-200'
+              >
                 <LogOut className='mr-2 h-6 w-6' />
                 <span>Sign out</span>
               </button>

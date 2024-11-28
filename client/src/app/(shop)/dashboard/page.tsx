@@ -34,29 +34,6 @@ import {
 import { GetAllShops } from '@/app/actions/GetShops';
 import { Shop } from '@/lib/types';
 
-export const columns: ColumnDef<Shop>[] = [
-  {
-    accessorKey: 'name',
-    header: 'Shop Name',
-    cell: ({ row }) => <div>{row.getValue('name')}</div>,
-  },
-  {
-    accessorKey: 'town',
-    header: 'Town',
-    cell: ({ row }) => <div>{row.getValue('town')}</div>,
-  },
-  {
-    accessorKey: 'province',
-    header: 'Province',
-    cell: ({ row }) => <div>{row.getValue('province')}</div>,
-  },
-  {
-    accessorKey: 'contact_number',
-    header: 'Contact Number',
-    cell: ({ row }) => <div>{row.getValue('contact_number')}</div>,
-  },
-];
-
 export default function Dashboard() {
   const [shops, setShops] = useState<Shop[]>([]);
   const [loading, setLoading] = useState(true);
@@ -65,6 +42,30 @@ export default function Dashboard() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility] = useState<VisibilityState>({});
   const [provinceFilter, setProvinceFilter] = useState<string>('All');
+
+  // Define columns inside the component
+  const columns: ColumnDef<Shop>[] = [
+    {
+      accessorKey: 'name',
+      header: 'Shop Name',
+      cell: ({ row }) => <div>{row.getValue('name')}</div>,
+    },
+    {
+      accessorKey: 'town',
+      header: 'Town',
+      cell: ({ row }) => <div>{row.getValue('town')}</div>,
+    },
+    {
+      accessorKey: 'province',
+      header: 'Province',
+      cell: ({ row }) => <div>{row.getValue('province')}</div>,
+    },
+    {
+      accessorKey: 'contact_number',
+      header: 'Contact Number',
+      cell: ({ row }) => <div>{row.getValue('contact_number')}</div>,
+    },
+  ];
 
   const fetchShops = async () => {
     setLoading(true);
@@ -85,6 +86,7 @@ export default function Dashboard() {
       setLoading(false);
     }
   };
+
   // Fetch shop data based on user role
   useEffect(() => {
     fetchShops();
